@@ -10,5 +10,6 @@ Software environment:
 
 **Training**  
 
-Here, we take MUTAG as an example:  
+Here, we take MUTAG as an example: 
+```python
 python RgLc.py --dataset MUTAG --fold_idx 0

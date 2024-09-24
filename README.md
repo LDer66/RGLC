@@ -4,4 +4,4 @@ This is the code implementation of the method from the paper "Rethinking the imp
 
 Training  
 Here we take MUTAG as an example:  
-python RgLc.py --dataset MUTAG --fold_idx 5
+python RgLc.py --dataset MUTAG --fold_idx 0

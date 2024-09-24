@@ -274,7 +274,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='PyTorch graph convolutional neural net for whole-graph classification')
     parser.add_argument('--dataset', type=str, default='MUTAG',
                         help='name of dataset (default: MUTAG)')
-    parser.add_argument('--device', type=int, default=1,
+    parser.add_argument('--device', type=int, default=0,
                         help='which gpu to use if any (default: 0)')
     parser.add_argument('--batch_size', type=int, default=32,
                         help='input batch size for training (default: 32)')
@@ -349,7 +349,6 @@ if __name__ == '__main__':
         torch.cuda.manual_seed_all(0)
     accuracies = [[] for i in range(args.epochs)] 
     graphs, num_classes = load_data(args.dataset, args.degree_as_tag)
-    print(args.fold_idx)
     train_graphs, test_graphs = separate_data(graphs, args.seed, args.fold_idx)
 
     ptb = args.ptb
@@ -398,14 +397,10 @@ if __name__ == '__main__':
         if acc_test> best_acc:
             best_acc = acc_test
     k_list = args.k_list
-    #last_acc_k = np.array([np.mean(test_accuracies[-k:]) for k in k_list]) * 100
     last_acc_k = np.array([(test_accuracies[-k]) for k in k_list]) * 100
     best_iter_acc = test_accuracies[np.argmax(train_accuracies)]
     np.set_printoptions(precision=2)
     print(f'Best acc: {best_acc*100:.2f}, last acc {k_list}: {last_acc_k},',
         f'best_iter_acc= {best_iter_acc*100:.2f}, Time: {time.time()-stime}')
     
-    logfp = f'logs/{args.dataset}_{args.variant}.log'
-    with open(logfp, 'a', encoding='utf-8') as fp:
-        fp.write(f"noise= ({args.noise}/{args.ptb}), acc= {best_acc*100:.2f}, l_acc {k_list}= {last_acc_k}, t_acc= {best_iter_acc*100:.2f}, time= {(time.time()-stime)}\n")
 

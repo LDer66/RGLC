@@ -375,8 +375,6 @@ if __name__ == '__main__':
         'prev_losses': [],
         'vec_dict': None,
     }
-    import time
-    stime = time.time()
     for epoch in range(1, args.epochs + 1):
         # scheduler.step()
         if epoch <= args.num_warmup:
@@ -401,6 +399,6 @@ if __name__ == '__main__':
     best_iter_acc = test_accuracies[np.argmax(train_accuracies)]
     np.set_printoptions(precision=2)
     print(f'Best acc: {best_acc*100:.2f}, last acc {k_list}: {last_acc_k},',
-        f'best_iter_acc= {best_iter_acc*100:.2f}, Time: {time.time()-stime}')
+        f'best_iter_acc= {best_iter_acc*100:.2f}')
     
 
